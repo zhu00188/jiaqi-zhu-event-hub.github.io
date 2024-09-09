@@ -1,0 +1,53 @@
+﻿@page "/eventcard"
+@using Microsoft.AspNetCore.Components
+@inject DataService DataService
+
+<div class="col-md-4 mb-3">
+    <div class="row p-3 border rounded bg-light">
+        <div class="col">
+            <h5 class="card-title mb-3">@Title</h5>
+            <p class="card-text mb-3"><span style="color: red;">@Date</span></p>
+            <p class="card-text mb-3">@Email</p>
+            <div class="d-flex justify-content-center mt-5">
+                <button class="btn btn-danger text-white" @onclick="DeleteEvent">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string? Title { get; set; }
+
+    [Parameter]
+    public string? Date { get; set; }
+
+    [Parameter]
+    public string? Email { get; set; }
+
+    [Parameter]
+    public int EventId { get; set; }
+
+    [Parameter]
+    public EventDeletedDelegate? OnEventDeleted { get; set; }
+
+    private async Task DeleteEvent()
+    {
+        try
+        {
+            string sql = "DELETE FROM event WHERE Id = @Id";
+            await DataService.SaveData(sql, new { Id = EventId });
+
+            if (OnEventDeleted != null)
+            {
+                await OnEventDeleted.Invoke(EventId);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error deleting event: {ex.Message}");
+        }
+    }
+
+    public delegate Task EventDeletedDelegate(int eventId);
+}

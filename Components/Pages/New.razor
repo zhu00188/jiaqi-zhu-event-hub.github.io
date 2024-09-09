@@ -1,0 +1,63 @@
+﻿@page "/new"
+@rendermode InteractiveServer
+@using System.ComponentModel.DataAnnotations
+@inject NavigationManager NavigationManager
+@inject DataService DataService
+
+<PageTitle>EventHub | New Event</PageTitle>
+
+<div class="row">
+    <div class="col">
+        <EditForm Model="@eventModel" OnValidSubmit="@HandleValidSubmit" class="p-5 bg-light border border-1">
+            <h2 class="fw-normal text-center mb-3">New Event</h2>
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="row">
+                <div class="col-12 col-md-7 mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <InputText id="title" class="form-control mb-1" @bind-Value="eventModel.Title" />
+                    <ValidationMessage For="@(() => eventModel.Title)" />
+                </div>
+                <div class="col-12 col-md-5 mb-3">
+                    <label for="date" class="form-label">Date</label>
+                    <InputDate id="date" class="form-control mb-1" @bind-Value="eventModel.Date" />
+                    <ValidationMessage For="@(() => eventModel.Date)" />
+                </div>
+                <div class="col-12 mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <InputText id="email" class="form-control mb-1" @bind-Value="eventModel.Email" />
+                    <ValidationMessage For="@(() => eventModel.Email)" />
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary me-3">Add Event</button>
+            <a href="/" class="btn btn-secondary">Cancel</a>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private EventModel eventModel = new EventModel();
+
+    private async Task HandleValidSubmit()
+    {
+        string sql = "INSERT INTO event (Title, Date, Email) VALUES (@Title, @Date, @Email)";
+        await DataService.SaveData(sql, eventModel);
+        NavigationManager.NavigateTo("/");
+    }
+
+    public class EventModel
+    {
+        [Required(ErrorMessage = "Title is required.")]
+        [StringLength(100, ErrorMessage = "Title cannot be longer than 100 characters.")]
+        public string Title { get; set; } = "";
+
+        [Required(ErrorMessage = "Date is required.")]
+        public DateTime Date { get; set; } = DateTime.Now;
+
+        [Required(ErrorMessage = "Email is required.")]
+        [EmailAddress(ErrorMessage = "Invalid email address.")]
+        public string Email { get; set; } = "";
+    }
+}

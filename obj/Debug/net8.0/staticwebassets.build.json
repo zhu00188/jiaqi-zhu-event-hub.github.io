@@ -1,0 +1,58 @@
+{
+  "Version": 1,
+  "Hash": "tWC7Mm5TVUy/EqyaZT78sH7ZlpSSStHNaHprVMaVj2A=",
+  "Source": "EventHub",
+  "BasePath": "_content/EventHub",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "EventHub\\wwwroot",
+      "Source": "EventHub",
+      "ContentRoot": "E:\\KAY\\CAREER\\Projects\\Github\\jiaqi-zhu-event-hub.github.io\\wwwroot\\",
+      "BasePath": "_content/EventHub",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "E:\\KAY\\CAREER\\Projects\\Github\\jiaqi-zhu-event-hub.github.io\\wwwroot\\app.css",
+      "SourceId": "EventHub",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\KAY\\CAREER\\Projects\\Github\\jiaqi-zhu-event-hub.github.io\\wwwroot\\",
+      "BasePath": "_content/EventHub",
+      "RelativePath": "app.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\app.css"
+    },
+    {
+      "Identity": "E:\\KAY\\CAREER\\Projects\\Github\\jiaqi-zhu-event-hub.github.io\\wwwroot\\favicon.png",
+      "SourceId": "EventHub",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\KAY\\CAREER\\Projects\\Github\\jiaqi-zhu-event-hub.github.io\\wwwroot\\",
+      "BasePath": "_content/EventHub",
+      "RelativePath": "favicon.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\favicon.png"
+    }
+  ]
+}

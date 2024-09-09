@@ -1,0 +1,54 @@
+﻿@page "/"
+@rendermode InteractiveServer
+@using EventHub
+@inject DataService DataService
+
+<PageTitle>EventHub | Events</PageTitle>
+
+<div class="row">
+    @if (events != null && events.Count > 0)
+    {
+        @foreach (var evnt in events)
+        {
+            <EventHub.Components.Pages.EventCard 
+                Title="@evnt.Title" 
+                Date="@evnt.Date.ToString("yyyy-MM-dd")" 
+                Email="@evnt.Email" 
+                EventId="@evnt.Id"
+                OnEventDeleted="@OnEventDeleted" />
+        }
+    }
+</div>
+
+@code {
+    private List<Event>? events;
+
+    public class Event
+    {
+        public int Id { get; set; }
+        public string Title { get; set; } = "";
+        public DateTime Date { get; set; } = DateTime.Now;
+        public string Email { get; set; } = "";
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadEvents();
+    }
+
+    private async Task LoadEvents()
+    {
+        string sql = "SELECT * FROM event";
+        events = await DataService.LoadData<Event, dynamic>(sql, new { });
+    }
+
+    private async Task OnEventDeleted(int eventId)
+    {
+        string sql = "DELETE FROM event WHERE Id = @Id";
+        await DataService.SaveData(sql, new { Id = eventId });
+
+        await LoadEvents();
+
+        StateHasChanged();
+    }
+}
